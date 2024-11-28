@@ -20,7 +20,7 @@ const temp = weather?.temp || "--"
 <section>
   <h2>Weather</h2>
   <p>{city }</p>
-  <p>{temp }°F</p>
+  <p class="temp">{temp}°F</p>
 </section>
 
 <style>
@@ -31,5 +31,9 @@ const temp = weather?.temp || "--"
     border: 1px solid black;
     border-radius: 10px;
     padding: 10px;
+  }
+
+  .temp {
+    font-size: 2rem;
   }
 </style>
