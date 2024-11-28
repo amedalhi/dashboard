@@ -6,7 +6,7 @@ router.get("/", async (req, res) => {
   try {
     const response = await fetch("https://api.football-data.org/v4/teams/", {
       headers: {
-        "X-Auth-Token": "09456ae70aea42788ef40b1fa01d5b20",
+        "X-Auth-Token": "{API_KEY}",
       },
     });
 
