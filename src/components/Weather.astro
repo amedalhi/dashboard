@@ -1,24 +1,26 @@
 ---
+let weather;
 
 try {
-  console.log("Fetching weather data...");
-  const response = await fetch("https://api.openweathermap.org/data/2.5/weather?lat=36.74&lon=-119.77&appid=57d38405c8bc272d90c7bc1a73396123")
-  console.log(response);
-
+  const response = await fetch("http://localhost:3000/api/weather")
   if (response.ok) {
-    const data = await response.json();
-    console.log(data);
+    weather = await response.json();
+  } else {
+    throw new Error("Failed to fetch date")
   }
-
-} catch (error) {
-  console.error(error);
+} catch(error) {
+  console.error(error)
+  weather = { error: true };
 }
+
+const city = weather?.city || "Unknown City"
+const temp = weather?.temp || "--"
 ---
 
 <section>
   <h2>Weather</h2>
-  <p>Fresno</p>
-  <p>72°F</p>
+  <p>{city }</p>
+  <p>{temp }°F</p>
 </section>
 
 <style>
