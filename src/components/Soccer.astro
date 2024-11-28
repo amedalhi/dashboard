@@ -1,0 +1,59 @@
+---
+
+let nextMatch
+
+try{
+  const response = await fetch("http://localhost:3000/api/united")
+  if (response.ok) {
+    const data = await response.json();
+    nextMatch = data;
+  } else {
+    throw new Error("Failed to fetch date")
+  }
+} catch(error) {
+  console.error(error)
+}
+
+console.log(nextMatch)
+
+const opponent = nextMatch.awayTeam !== "Man United" ? nextMatch.awayTeam : nextMatch.homeTeam
+
+const location = nextMatch.homeTeam === "Man United" ? "Home" : "Away"
+const date = nextMatch.date
+
+function parseDateTime(utcString) {
+  const parts = {
+    weekday: new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date(utcString)),
+    month: new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(utcString)),
+    day: new Intl.DateTimeFormat('en-US', { day: 'numeric' }).format(new Date(utcString)),
+    time: new Intl.DateTimeFormat('en-US', { 
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true 
+    }).format(new Date(utcString))
+  };
+  return parts;
+}
+
+// Usage
+const dateStr = "2024-12-01T13:30:00Z";
+const { weekday, month, day, time } = parseDateTime(dateStr);
+---
+
+<section>
+  <p>United vs {opponent}</p>
+  <p>{location}</p>
+  <p>{weekday}, {month} {day} at {time}</p>
+
+</section>
+
+<style>
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+  }
+</style>
