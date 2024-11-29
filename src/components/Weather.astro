@@ -17,23 +17,27 @@ const city = weather?.city || "Unknown City"
 const temp = weather?.temp || "--"
 ---
 
-<section>
-  <h2>Weather</h2>
-  <p>{city }</p>
-  <p class="temp">{temp}°F</p>
+<section class="widget shadow">
+  <p class="temp">{temp}°<span class="deg">F</span></p>
+  <p class="city">{city}</p>
 </section>
 
 <style>
-  section {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 10px;
+  .temp {
+    font-size: var(--step-7);
+    font-weight: 800;
   }
 
-  .temp {
-    font-size: 2rem;
+  .deg {
+    font-size: var(--step-4);
+    font-weight: 700;
+    color: var(--clr-gray-light);
+  }
+
+  .city {
+    font-size: var(--step--1);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--clr-gray-light);
   }
 </style>

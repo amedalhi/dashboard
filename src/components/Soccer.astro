@@ -14,7 +14,6 @@ try{
   console.error(error)
 }
 
-console.log(nextMatch)
 
 const opponent = nextMatch.awayTeam !== "Man United" ? nextMatch.awayTeam : nextMatch.homeTeam
 
@@ -36,24 +35,50 @@ function parseDateTime(utcString) {
 }
 
 // Usage
-const dateStr = "2024-12-01T13:30:00Z";
+const dateStr = date;
 const { weekday, month, day, time } = parseDateTime(dateStr);
 ---
 
-<section>
-  <p>United vs {opponent}</p>
-  <p>{location}</p>
+<section class="widget shadow">
+  <di class="teams-wrapper">
+    <p class="united">United</p>
+    <p class="vs">vs</p>
+    <p class="opponent">{opponent}</p>
+  </di>
+  <p class="location">{location}</p>
   <p>{weekday}, {month} {day} at {time}</p>
-
 </section>
 
 <style>
-  section {
+  .teams-wrapper {
     display: flex;
     flex-direction: column;
-    align-items: left;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 10px;
+    gap: -0.5rem;
+    line-height: 0.95; 
+  }
+
+  .united {
+    font-size: var(--step-5);
+    font-weight: 800;
+    line-height: -2rem;
+  }
+
+  .vs {
+    font-size: var(--step-3);
+    font-weight: 800;
+    color: var(--clr-gray-light);
+  }
+
+  .opponent {
+    font-size: var(--step-3);
+    font-weight: 800;
+  }
+
+  .location {
+    font-size: var(--step--1);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--clr-gray-light);
   }
 </style>
+

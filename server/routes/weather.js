@@ -1,7 +1,7 @@
 import express from "express";
-import "dotenv/config";
 const router = express.Router();
 
+import "dotenv/config";
 const API_KEY = process.env.WEATHER_API_KEY;
 
 router.get("/", async (req, res) => {

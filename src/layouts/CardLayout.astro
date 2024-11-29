@@ -1,0 +1,17 @@
+---
+
+---
+
+<main>
+  <slot />
+</main>
+
+<style>
+  main {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: var(--space-m);
+    gap: var(--space-m);
+  }
+</style>

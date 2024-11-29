@@ -3,11 +3,16 @@
 import MainLayout from '../layouts/MainLayout.astro'
 
 //components
+import CardLayout from '../layouts/CardLayout.astro'
 import Weather from "../components/Weather.astro"
 import Soccer from '../components/Soccer.astro'
+import Calendar from '../components/Calendar.astro'
 ---
 
 <MainLayout>
-	<Weather />
-	<Soccer />
+	<CardLayout>
+		<Weather />
+		<Soccer />
+		<Calendar />
+	</CardLayout>
 </MainLayout>

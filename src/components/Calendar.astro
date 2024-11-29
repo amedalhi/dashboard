@@ -1,0 +1,47 @@
+---
+const dateObject = new Date();
+console.log(dateObject)
+
+const date = dateObject.toLocaleString('default', { day: 'numeric' });
+const month = dateObject.toLocaleString('default', { month: 'short' });
+const day = dateObject.toLocaleString('default', { weekday: 'long' });
+
+---
+
+<section class="widget shadow">
+  <div class="wrapper">
+    <p class="date">{date}</p>
+    <p class="month">{month}</p>
+  </div>
+  <p class="day">{day}</p>
+</section>
+
+<style>
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .date {
+    font-size: var(--step-7);
+    font-weight: 800;
+  }
+
+  .month {
+    font-size: var(--step-2);
+    font-weight: 800;
+    color: var(--clr-gray-light);
+    letter-spacing: -5px;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+
+  .day {
+    font-size: var(--step--1);
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--clr-gray-light);
+  }
+</style>
