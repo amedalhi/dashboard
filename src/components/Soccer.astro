@@ -14,9 +14,12 @@ try{
   console.error(error)
 }
 
+const today = new Date();
+const todaysMonth = today.toLocaleString('default', { month: 'long' });
+const todaysDay = today.getDate().toString();
+
 
 const opponent = nextMatch.awayTeam !== "Man United" ? nextMatch.awayTeam : nextMatch.homeTeam
-
 const location = nextMatch.homeTeam === "Man United" ? "Home" : "Away"
 const date = nextMatch.date
 
@@ -37,17 +40,23 @@ function parseDateTime(utcString) {
 // Usage
 const dateStr = date;
 const { weekday, month, day, time } = parseDateTime(dateStr);
+console.log(day)
 ---
 
-<section class="widget shadow">
-  <di class="teams-wrapper">
-    <p class="united">United</p>
-    <p class="vs">vs</p>
-    <p class="opponent">{opponent}</p>
-  </di>
-  <p class="location">{location}</p>
-  <p>{weekday}, {month} {day} at {time}</p>
-</section>
+{todaysMonth === month && todaysDay === day ?    
+  <h1>United is playing today</h1>
+      : 
+  <section class="widget shadow">
+    <di class="teams-wrapper">
+      <p class="united">United</p>
+      <p class="vs">vs</p>
+      <p class="opponent">{opponent}</p>
+    </di>
+    <p class="location">{location}</p>
+    <p>{weekday}, {month} {day} at {time}</p>
+  </section>
+}
+
 
 <style>
   .teams-wrapper {
