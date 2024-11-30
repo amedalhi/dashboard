@@ -1,9 +1,8 @@
 ---
-
 let nextMatch
 
 try{
-  const response = await fetch("http://localhost:3000/api/united")
+  const response = await fetch("http://localhost:3000/api/soccer")
   if (response.ok) {
     const data = await response.json();
     nextMatch = data;
@@ -21,7 +20,7 @@ const todaysDay = today.getDate().toString();
 
 const opponent = nextMatch.awayTeam !== "Man United" ? nextMatch.awayTeam : nextMatch.homeTeam
 const location = nextMatch.homeTeam === "Man United" ? "Home" : "Away"
-const date = nextMatch.date
+const date = nextMatch.matchDate
 
 function parseDateTime(utcString) {
   const parts = {

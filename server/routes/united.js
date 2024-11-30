@@ -55,7 +55,6 @@ router.get("/", async (req, res) => {
       return res.status(404).json({ error: "No matches found" });
     }
 
-    console.log(matches[2]);
     // Get the first match (either live or scheduled)
     const nextMatch = matches[0];
     const matchDetails = {
