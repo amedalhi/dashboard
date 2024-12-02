@@ -7,7 +7,7 @@ const API_KEY = process.env.WEATHER_API_KEY;
 router.get("/", async (req, res) => {
   try {
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=36.74&lon=-119.77&units=imperial&appid=${API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?lat=36.86&lon=-119.74&units=imperial&appid=${API_KEY}`
     );
 
     if (!response.ok) {

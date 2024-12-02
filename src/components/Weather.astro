@@ -13,7 +13,7 @@ try {
   weather = { error: true };
 }
 
-const city = weather?.city || "Unknown City"
+const city = weather?.city === "Clovis" ? "Fresno" : weather?.city || "Unknown City"
 const temp = weather?.temp || "--"
 ---
 
