@@ -1,44 +1,61 @@
 import express from "express";
-const router = express.Router();
-
 import "dotenv/config";
-const API_KEY = process.env.SOCCER_API_KEY;
 
-//team info
-const team = "66";
+const router = express.Router();
+const API_KEY = process.env.SOCCER_API_KEY;
+const TEAM_ID = "66";
+
+const fetchMatches = async (status) => {
+  const response = await fetch(
+    `https://api.football-data.org/v4/teams/${TEAM_ID}/matches?status=${status}`,
+    {
+      headers: { "X-Auth-Token": API_KEY },
+    }
+  );
+  return response.json();
+};
+
+const isMatchToday = (match) => {
+  const matchDate = new Date(match.utcDate);
+  const today = new Date();
+  return (
+    matchDate.getDate() === today.getDate() &&
+    matchDate.getMonth() === today.getMonth() &&
+    matchDate.getFullYear() === today.getFullYear()
+  );
+};
+
+const formatMatchDetails = (matchData) => {
+  const match = matchData.matches ? matchData.matches[0] : matchData;
+
+  return {
+    matchDate: match.utcDate,
+    homeTeam: match.homeTeam.shortName,
+    awayTeam: match.awayTeam.shortName,
+    homeScore: match.score.fullTime.home,
+    awayScore: match.score.fullTime.away,
+  };
+};
 
 router.get("/", async (req, res) => {
   try {
-    const fetchMatches = async (status) => {
-      const response = await fetch(
-        `https://api.football-data.org/v4/teams/${team}/matches?status=${status}`,
-        {
-          headers: {
-            "X-Auth-Token": `${API_KEY}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-      return data;
-    };
-
-    let matchData = await fetchMatches("LIVE");
-
-    if (matchData.resultSet.count === 0) {
-      matchData = await fetchMatches("SCHEDULED");
+    const liveData = await fetchMatches("LIVE");
+    if (liveData.resultSet.count > 0) {
+      return res.json(formatMatchDetails(liveData));
     }
 
-    const match = matchData.matches[0];
-    const matchDetails = {
-      matchDate: match.utcDate,
-      homeTeam: match.homeTeam.shortName,
-      awayTeam: match.awayTeam.shortName,
-      homeScore: match.score.fullTime.homeTeam,
-      awayScore: match.score.fullTime.awayTeam,
-    };
+    const finishedData = await fetchMatches("FINISHED");
+    const todayMatch = finishedData.matches.find(isMatchToday);
+    if (todayMatch) {
+      return res.json(formatMatchDetails({ matches: [todayMatch] }));
+    }
 
-    res.json(matchDetails);
+    const scheduledData = await fetchMatches("SCHEDULED");
+    if (scheduledData.matches.length > 0) {
+      return res.json(formatMatchDetails(scheduledData));
+    }
+
+    res.status(404).json({ error: "No matches found" });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }

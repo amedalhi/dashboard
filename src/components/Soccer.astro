@@ -6,6 +6,7 @@ try{
   if (response.ok) {
     const data = await response.json();
     nextMatch = data;
+    console.log(nextMatch)
   } else {
     throw new Error("Failed to fetch date")
   }
@@ -13,14 +14,12 @@ try{
   console.error(error)
 }
 
-const today = new Date();
-const todaysMonth = today.toLocaleString('default', { month: 'long' });
-const todaysDay = today.getDate().toString();
-
 
 const opponent = nextMatch.awayTeam !== "Man United" ? nextMatch.awayTeam : nextMatch.homeTeam
 const location = nextMatch.homeTeam === "Man United" ? "Home" : "Away"
 const date = nextMatch.matchDate
+const homeScore = nextMatch.homeScore
+const awayScore = nextMatch.awayScore
 
 function parseDateTime(utcString) {
   const parts = {
@@ -40,19 +39,16 @@ const dateStr = date;
 const { weekday, month, day, time } = parseDateTime(dateStr);
 ---
 
-{todaysMonth === month && todaysDay === day ?    
-  <h1>United is playing today</h1>
-      : 
-  <section class="widget shadow">
-    <di class="teams-wrapper">
-      <p class="united">United</p>
-      <p class="vs">vs</p>
-      <p class="opponent">{opponent}</p>
-    </di>
-    <p class="location">{location}</p>
-    <p>{weekday}, {month} {day} at {time}</p>
-  </section>
-}
+<section class="widget shadow">
+  <div class="teams-wrapper">
+    <p class="united">United</p>
+    <p class="vs">vs</p>
+    <p class="opponent">{opponent}</p>
+  </div>
+  <p class="location">{location}</p>
+  {homeScore ? <p class="score">{homeScore} - {awayScore}</p> : <p>{weekday}, {month} {day} at {time}</p>}
+</section>
+
 
 
 <style>
@@ -85,6 +81,11 @@ const { weekday, month, day, time } = parseDateTime(dateStr);
     font-weight: 700;
     text-transform: uppercase;
     color: var(--clr-gray-light);
+  }
+
+  .score {
+    font-size: var(--step-3);
+    font-weight: 800;
   }
 </style>
 
