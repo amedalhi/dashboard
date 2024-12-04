@@ -7,12 +7,14 @@ import CardLayout from '../layouts/CardLayout.astro'
 import Weather from "../components/Weather.astro"
 import Soccer from '../components/Soccer.astro'
 import Calendar from '../components/Calendar.astro'
+import Clock from '../components/Clock.astro'
 ---
 
 <MainLayout>
 	<CardLayout>
+		<Clock />
 		<Weather />
-		<Soccer />
 		<Calendar />
+		<Soccer />
 	</CardLayout>
 </MainLayout>

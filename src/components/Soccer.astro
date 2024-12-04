@@ -6,7 +6,6 @@ try{
   if (response.ok) {
     const data = await response.json();
     nextMatch = data;
-    console.log(nextMatch)
   } else {
     throw new Error("Failed to fetch date")
   }

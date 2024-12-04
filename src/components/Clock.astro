@@ -1,0 +1,27 @@
+---
+
+---
+
+<section class="widget shadow">
+  <p class="time"></p>
+</section>
+  
+<script>
+  const updateTime = () => {
+  const timeElement = document.querySelector(".time");
+    if (timeElement) {
+      timeElement.textContent = new Date().toLocaleTimeString();
+    } 
+  };
+
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>
+
+
+<style>
+  .time {
+    font-size: var(--step-4);
+    font-weight: 700;
+  }
+</style>
