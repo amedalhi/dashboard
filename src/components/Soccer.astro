@@ -45,7 +45,7 @@ const { weekday, month, day, time } = parseDateTime(dateStr);
     <p class="opponent">{opponent}</p>
   </div>
   <p class="location">{location}</p>
-  {homeScore ? <p class="score">{homeScore} - {awayScore}</p> : <p>{weekday}, {month} {day} at {time}</p>}
+  {homeScore !== null ? <p class="score">{homeScore} - {awayScore}</p> : <p>{weekday}, {month} {day} at {time}</p>}
 </section>
 
 

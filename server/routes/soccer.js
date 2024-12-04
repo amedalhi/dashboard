@@ -40,6 +40,8 @@ const formatMatchDetails = (matchData) => {
 router.get("/", async (req, res) => {
   try {
     const liveData = await fetchMatches("LIVE");
+    console.log(liveData);
+    console.log(liveData.resultSet.count);
     if (liveData.resultSet.count > 0) {
       return res.json(formatMatchDetails(liveData));
     }
