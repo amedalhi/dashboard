@@ -13,6 +13,7 @@ try{
   console.error(error)
 }
 
+const isUnitedHome = nextMatch.homeTeam === "Man United"
 
 const opponent = nextMatch.awayTeam !== "Man United" ? nextMatch.awayTeam : nextMatch.homeTeam
 const location = nextMatch.homeTeam === "Man United" ? "Home" : "Away"
@@ -45,10 +46,8 @@ const { weekday, month, day, time } = parseDateTime(dateStr);
     <p class="opponent">{opponent}</p>
   </div>
   <p class="location">{location}</p>
-  {homeScore !== null ? <p class="score">{homeScore} - {awayScore}</p> : <p>{weekday}, {month} {day} at {time}</p>}
+  {homeScore !== null ? <p class="score"><span class={isUnitedHome ? "unitedScore" : ""}>{homeScore}</span> - <span class={isUnitedHome ? "" : "unitedScore"}>{awayScore}</span></p> : <p>{weekday}, {month} {day} at {time}</p>}
 </section>
-
-
 
 <style>
   .teams-wrapper {
@@ -59,32 +58,36 @@ const { weekday, month, day, time } = parseDateTime(dateStr);
   }
 
   .united {
-    font-size: var(--step-5);
+    font-size: var(--step-7);
     font-weight: 800;
     line-height: -2rem;
   }
 
   .vs {
-    font-size: var(--step-3);
+    font-size: var(--step-4);
     font-weight: 800;
     color: var(--clr-gray-light);
   }
 
   .opponent {
-    font-size: var(--step-3);
+    font-size: var(--step-5);
     font-weight: 800;
   }
 
   .location {
-    font-size: var(--step--1);
+    font-size: var(--step-2);
     font-weight: 700;
     text-transform: uppercase;
     color: var(--clr-gray-light);
   }
 
   .score {
-    font-size: var(--step-3);
+    font-size: var(--step-4);
     font-weight: 800;
+  }
+
+  .unitedScore {
+    color: red;
   }
 </style>
 
