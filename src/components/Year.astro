@@ -1,0 +1,44 @@
+---
+const today = new Date();
+const startOfYear = new Date(today.getFullYear(), 0, 1);
+const dayOfYear = Math.round((today.getTime() - startOfYear.getTime()) / (1000 * 60 * 60 * 24));
+const daysInYear = 365;
+const yearPercentage = Math.round((dayOfYear/daysInYear) * 100)
+
+const gridSize = 100;
+const squareSize = '20px';
+let grid = Array(gridSize).fill(0);
+const filledGrid = grid.fill(1, 0, yearPercentage)
+---
+
+<section class="widget shadow year-widget">
+  <div class="grid-container">
+    {filledGrid.map((value) => <div class="square" data-year={value}></div>)}
+  </div>
+</section>
+
+<style define:vars={{ squareSize}}>
+  .year-widget {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-l);
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: var(--space-s);
+  }
+
+  .square {
+    width: var(--squareSize);
+    height: var(--squareSize);
+    border: solid 0.25px var(--clr-border);
+  }
+
+  .square[data-year="1"] {
+    background-color: var(--clr-black);
+  }  
+</style>
