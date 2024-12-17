@@ -48,7 +48,7 @@ weatherUpdateJob.start();
 router.get("/", async (req, res) => {
   try {
     const cacheAge = weatherCache.lastUpdated
-      ? (new Date() - weatherCache.lastUpdated) / 1000 / 60 // in minutes
+      ? (new Date() - weatherCache.lastUpdated) / 1000 / 60
       : Infinity;
 
     if (!weatherCache.data || cacheAge >= 60) {
